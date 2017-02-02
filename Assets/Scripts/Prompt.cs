@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.IO;
 
 public class Prompt : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class Prompt : MonoBehaviour {
     string currentPrompt;
 
     string[] wordlist;
+
+    public TextAsset textAsset;
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +30,7 @@ public class Prompt : MonoBehaviour {
     // read words from file
     void ReadWords()
     {
-        string wordsFromFile = System.IO.File.ReadAllText("Assets/wordlist.txt");
+        string wordsFromFile = textAsset.text;
         wordlist = wordsFromFile.Split(' ');
     }
 
