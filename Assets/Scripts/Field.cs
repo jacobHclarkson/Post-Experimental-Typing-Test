@@ -7,10 +7,13 @@ public class Field : MonoBehaviour {
 
     InputField input;
 
+    public Text prompt;
+    Prompt promptController;
+
     public Text timerText;
 
-    string transcribedText;
-    string rawInput;
+    string transcribedText = "T: ";
+    string rawInput = "R: ";
 
     public float timeRemaining = 60.0f;
 
@@ -19,6 +22,7 @@ public class Field : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        promptController = prompt.GetComponent<Prompt>();
         input = GetComponent<InputField>();
         input.Select();
 	}
@@ -34,6 +38,7 @@ public class Field : MonoBehaviour {
             input.ActivateInputField();
             input.Select();
         }
+
 
         CaptureRawInput();
 
@@ -68,18 +73,20 @@ public class Field : MonoBehaviour {
             timeup = true;
             Debug.Log("Exiting");
             SaveText();
+            promptController.SavePrompt();
             WriteToFile();
             Application.Quit();
         }
         timerText.text = Mathf.Round(timeRemaining).ToString();
     }
 
+
     // write data to file
     void WriteToFile()
     {
         StreamWriter sw = new StreamWriter(Application.dataPath + "data.txt");
+        sw.WriteLine(promptController.GetPrescribedText());
         sw.WriteLine(transcribedText);
-        sw.WriteLine();
         sw.WriteLine(rawInput);
         sw.Close();
     }

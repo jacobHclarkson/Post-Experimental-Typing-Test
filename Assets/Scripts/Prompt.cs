@@ -8,9 +8,13 @@ public class Prompt : MonoBehaviour {
     Text prompt;
     string currentPrompt;
 
+    string prescribedText = "P: ";
+
     string[] wordlist;
 
     public TextAsset textAsset;
+
+    public int wordsPerLine = 15;
 
 	// Use this for initialization
 	void Start () {
@@ -22,10 +26,23 @@ public class Prompt : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	    if (Input.GetKeyDown(KeyCode.Return)){
+            SavePrompt();
             currentPrompt = GenerateWords();
             prompt.text = currentPrompt;
         }
 	}
+
+    // Save prescribed text
+    public void SavePrompt()
+    {
+        prescribedText += prompt.text;
+    }
+
+    // getter for recorded prescribed text
+    public string GetPrescribedText()
+    {
+        return prescribedText;
+    }
 
     // read words from file
     void ReadWords()
@@ -38,7 +55,7 @@ public class Prompt : MonoBehaviour {
     string GenerateWords()
     {
         string nextPrompt = "";
-        for(int i=0; i<10; i++)
+        for(int i=0; i<wordsPerLine; i++)
         {
             int idx = Random.Range(0, wordlist.Length);
             nextPrompt = nextPrompt + wordlist[idx] + " ";
