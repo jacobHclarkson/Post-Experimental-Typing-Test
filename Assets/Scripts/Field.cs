@@ -12,8 +12,8 @@ public class Field : MonoBehaviour {
 
     public Text timerText;
 
-    string transcribedText = "T: ";
-    string rawInput = "R: ";
+    string transcribedText = "";
+    string rawInput = "";
 
     public float timeRemaining = 60.0f;
 

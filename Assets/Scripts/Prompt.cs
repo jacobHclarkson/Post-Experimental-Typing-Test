@@ -8,7 +8,7 @@ public class Prompt : MonoBehaviour {
     Text prompt;
     string currentPrompt;
 
-    string prescribedText = "P: ";
+    string prescribedText = "";
 
     string[] wordlist;
 
