@@ -19,6 +19,10 @@ public class Field : MonoBehaviour {
 
     bool timeup = false;
 
+    // for time to first kep press
+    bool firstKeyPressed = false;
+    float timeToFirstKeyPress = 0.0f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +33,15 @@ public class Field : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (!firstKeyPressed)
+        {
+            if (rawInput != "")
+            {
+                firstKeyPressed = true;
+            }
+        }
+
 	    if (Input.GetKeyDown(KeyCode.Return)){
 
             SaveText();
@@ -67,6 +80,12 @@ public class Field : MonoBehaviour {
     // timer
     void UpdateTime()
     {
+        // time to first key press
+        if (!firstKeyPressed)
+        {
+            timeToFirstKeyPress += Time.deltaTime;
+        } 
+
         timeRemaining -= Time.deltaTime;
         if(!timeup && timeRemaining <=0)
         {
@@ -88,6 +107,7 @@ public class Field : MonoBehaviour {
         sw.WriteLine(promptController.GetPrescribedText());
         sw.WriteLine(transcribedText);
         sw.WriteLine(rawInput);
+        sw.WriteLine(timeToFirstKeyPress);
         sw.Close();
     }
 }
