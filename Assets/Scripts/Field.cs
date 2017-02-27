@@ -96,14 +96,14 @@ public class Field : MonoBehaviour {
             WriteToFile();
             Application.Quit();
         }
-        timerText.text = Mathf.Round(timeRemaining).ToString();
+        //timerText.text = Mathf.Round(timeRemaining).ToString();
     }
 
 
     // write data to file
     void WriteToFile()
     {
-        StreamWriter sw = new StreamWriter(Application.dataPath + "data.txt");
+        StreamWriter sw = new StreamWriter(Application.dataPath + "data.txt", true);
         sw.WriteLine(promptController.GetPrescribedText());
         sw.WriteLine(transcribedText);
         sw.WriteLine(rawInput);
